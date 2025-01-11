@@ -1,0 +1,23 @@
+*{
+    margin: 0;
+    padding: 0;}
+
+.texto{
+    color: white;
+    position: relative;
+    z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 55vh;
+    flex-direction: column;
+}
+
+.botones{
+    display: flex;
+    justify-content: space-around;
+}
+
+main{
+    margin-top: 4em;
+}
