@@ -1,6 +1,6 @@
 import React from 'react'
 
-const CardPizza = ({name, price, ingredientes, img}) => {
+const CardPizza = ({name, price, ingredients, img}) => {
 
 
     
@@ -12,7 +12,7 @@ const CardPizza = ({name, price, ingredientes, img}) => {
                 <h5 className="card-title">{name}</h5>
                 <hr />
                 <h6 className="card-subtitle mb-2 text-body-secondary">Ingredientes</h6>
-                <p className="card-text">🍕{ingredientes.join(", ")}</p>
+                <p className="card-text">🍕{ingredients.join(', ')}</p>
                 <hr />
                 <h4>Precio: ${price}</h4>
                 <div className="botones">
