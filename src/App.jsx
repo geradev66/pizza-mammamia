@@ -7,15 +7,17 @@ import Navbar from './components/Navbar';
 import Login from './components/Login'
 import Register from './components/Register';
 import Cart from './components/Cart'
+import Pizza from './components/Pizza';
 
 function App() {
   return (
     <>
     <Navbar/>
-    {/* <Home/> */}
+    <Home/>
+    {/* <Pizza/> */}
     {/* <Register/> */}
     {/* <Login/> */}
-    <Cart/>
+    {/* <Cart/> */}
     <Footer/>
     </>
   )

@@ -12,7 +12,7 @@ const CardPizza = ({name, price, ingredients, img}) => {
                 <h5 className="card-title">{name}</h5>
                 <hr />
                 <h6 className="card-subtitle mb-2 text-body-secondary">Ingredientes</h6>
-                <p className="card-text">🍕{ingredients.join(', ')}</p>
+                <p className="card-text">🍕{ingredients}</p>
                 <hr />
                 <h4>Precio: ${price}</h4>
                 <div className="botones">
