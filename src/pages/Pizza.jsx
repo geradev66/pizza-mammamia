@@ -31,7 +31,7 @@ const Pizza = () => {
                         ))}
                     </ul>
                     <h2 className='text-success'>${pizzaInfo.price}</h2>
-                    <button className='btn btn-success'><i class="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
+                    <button className='btn btn-success'><i className="fa-solid fa-cart-shopping"></i> Agregar al carrito</button>
                 </div>
             </div>
         </div>

@@ -28,3 +28,35 @@ main{
     align-items: center;
     height: 100vh;
 }
+
+.perfil{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+}
+
+.pizza-character{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    flex-direction: column;
+    font-family: "Lilita One", serif;
+    font-weight: 400;
+    font-size: 6rem !important;
+    
+}
+
+nav a{
+    color: white;
+    text-decoration: none;
+    font-family: "Lilita One", serif;
+
+}
+
+.bg-beige{
+    background-color: bisque;
+}
+
