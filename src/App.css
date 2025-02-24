@@ -60,3 +60,7 @@ nav a{
     background-color: bisque;
 }
 
+.active .btn{
+    color: green;
+}
+

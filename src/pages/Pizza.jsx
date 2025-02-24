@@ -1,13 +1,15 @@
 import React, {useState, useEffect } from 'react'
 import Header from '../components/Header';
+import { useParams } from 'react-router-dom';
 
 const Pizza = () => {
     const [pizzaInfo, setPizzasInfo] = useState({})
+    const{id} = useParams()
 
     useEffect(() =>{
         const infoPizza = async () =>{
             try{
-                const response = await fetch("http://localhost:5000/api/pizzas/p001");
+                const response = await fetch(`http://localhost:5000/api/pizzas/${id}`);
                 const data = await response.json();
                 setPizzasInfo(data);
             } catch(error){
