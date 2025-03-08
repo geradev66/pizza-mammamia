@@ -1,14 +1,15 @@
-import React from 'react'
+import { useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 
 const Profile = () => {
-  return (
-    <>
-    <div className="container perfil">
-      <h2>gerardo@geradev.com</h2>
-      <button className='btn btn-danger'>Cerrar Sesión</button>
-    </div>
-    </>
-  )
-}
+    const { email, logout } = useContext(UserContext);
 
-export default Profile
+    return (
+        <div className="container perfil">
+            <h2>{email ? email : "Usuario no identificado"}</h2>
+            <button className='btn btn-danger' onClick={logout}>Cerrar Sesión</button>
+        </div>
+    );
+};
+
+export default Profile;

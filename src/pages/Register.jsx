@@ -1,121 +1,71 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2'
-
+import Swal from 'sweetalert2';
 
 const Register = () => {
+    const { register } = useContext(UserContext);
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
     const [confirm, setConfirm] = useState('');
 
-    const correoValor = (e) =>{
-        setCorreo(e.target.value)
-    }
-
-    const passwordValor = (e) =>{
-        setPassword(e.target.value)
-    }
-
-    const confirmValor = (e) =>{
-        setConfirm(e.target.value)
-    }
-
-    const validarInput = (e) =>{
-        e.preventDefault()
-        if (!correo.trim() || !password.trim() || !confirm.trim()){
-            toast.error('Todos los campos son obligatorios')
-            return
-        }
-
-        if (!validacionPassword()) {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!correo.trim() || !password.trim() || !confirm.trim()) {
+            toast.error('Todos los campos son obligatorios');
             return;
         }
-
-        if (!cantidadDeCaracteres()) {
+        if (password !== confirm) {
+            toast.warning('Las contraseñas no coinciden');
             return;
         }
-
-        if (!validarCorreo(correo)) {
+        if (password.length < 6) {
+            toast.warning('La contraseña debe tener al menos 6 caracteres');
             return;
         }
-
-        // Alerta de que todo salio bien 
-
-        
-
-        setCorreo('')
-        setPassword('')
-        setConfirm('')
-
-        Swal.fire({
-            title: "Registro éxitoso",
-            icon: "success",
-            draggable: true
-          });
-    }
-
-    const validacionPassword = () => {
-        if(password !== confirm){
-            toast.warning('Las contraseñas no coinciden')
-            return false
-
+        try {
+            await register(correo, password);
+            Swal.fire({
+                title: "Registro exitoso",
+                icon: "success",
+                draggable: true
+            });
+        } catch (error) {
+            toast.error("Error en el registro");
         }
-        return true
-    }
+    };
 
-    const cantidadDeCaracteres = () =>{
-        if(password.length < 6){
-            toast.warning('No puede tener menos de 6 caracteres')
-            return false
-        }
-        return true
-    }
-
-    const validarCorreo = (correo) =>{
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(correo)){
-            toast.error('El correo electrónico no valido.')
-            return false;
-        }
-        return true;
-
-    }
-  return (
-    <>
-    <div className="container formulario-registro">
-            <div className="card p-3 shadow" style={{width:'18em'}}>
+    return (
+        <div className="container formulario-registro">
+            <div className="card p-3 shadow" style={{ width: '18em' }}>
                 <h2>Registro</h2>
-                    <form onSubmit={validarInput}>
-                        <input 
+                <form onSubmit={handleSubmit}>
+                    <input 
                         className='form-control mt-2' 
-                        type="text" 
+                        type="email" 
                         placeholder='Correo'
-                        name = 'correo'
-                        onChange={correoValor}
                         value={correo}
-
-                        />
-                        <input className='form-control mt-2' 
+                        onChange={(e) => setCorreo(e.target.value)}
+                    />
+                    <input 
+                        className='form-control mt-2' 
                         type="password" 
-                        placeholder='contraseña'
-                        name='password'
-                        onChange={passwordValor}
-                        value ={password} 
-                        />
-                        <input className='form-control mt-2' 
+                        placeholder='Contraseña'
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <input 
+                        className='form-control mt-2' 
                         type="password" 
-                        name='confirmar'
-                        placeholder='confirmar contraseña'
-                        onChange={confirmValor} 
+                        placeholder='Confirmar contraseña'
                         value={confirm}
-                        
-                        />
-                        <button className='btn btn-success mt-2' type='submit'>Registrarse</button>
-                    </form>
+                        onChange={(e) => setConfirm(e.target.value)}
+                    />
+                    <button className='btn btn-success mt-2' type='submit'>Registrarse</button>
+                </form>
             </div>
         </div>
-    </>
-  )
-}
+    );
+};
 
-export default Register
+export default Register;

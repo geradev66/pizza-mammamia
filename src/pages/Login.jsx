@@ -1,100 +1,55 @@
-import { useState } from 'react';
+import { useState, useContext } from 'react';
+import { UserContext } from '../context/UserContext';
 import { toast } from 'react-toastify';
-import Swal from 'sweetalert2'
+import Swal from 'sweetalert2';
 
-
-const Register = () => {
+const Login = () => {
+    const { login } = useContext(UserContext);
     const [correo, setCorreo] = useState('');
     const [password, setPassword] = useState('');
-    const [confirm, setConfirm] = useState('');
 
-    const correoValor = (e) =>{
-        setCorreo(e.target.value)
-    }
-
-    const passwordValor = (e) =>{
-        setPassword(e.target.value)
-    }
-
-    
-
-    const validarInput = (e) =>{
-        e.preventDefault()
-        if (!correo.trim() || !password.trim()){
-            toast.error('Todos los campos son obligatorios')
-            return
-        }
-
-      
-
-        if (!cantidadDeCaracteres()) {
+    const handleSubmit = async (e) => {
+        e.preventDefault();
+        if (!correo.trim() || !password.trim()) {
+            toast.error('Todos los campos son obligatorios');
             return;
         }
-
-        if (!validarCorreo(correo)) {
-            return;
+        try {
+            await login(correo, password);
+            Swal.fire({
+                title: "Inicio de sesión exitoso",
+                icon: "success",
+                draggable: true
+            });
+        } catch (error) {
+            toast.error("Error en el inicio de sesión");
         }
+    };
 
-        // Alerta de que todo salio bien 
-
-        
-
-        setCorreo('')
-        setPassword('')
-        setConfirm('')
-
-        Swal.fire({
-            title: "Registro éxitoso",
-            icon: "success",
-            draggable: true
-          });
-    }
-
-    const cantidadDeCaracteres = () =>{
-        if(password.length < 6){
-            toast.warning('No puede tener menos de 6 caracteres')
-            return false
-        }
-        return true
-    }
-
-    const validarCorreo = (correo) =>{
-        const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-        if(!emailRegex.test(correo)){
-            toast.error('El correo electrónico no valido.')
-            return false;
-        }
-        return true;
-
-    }
-  return (
-    <>
-    <div className="container formulario-registro">
-            <div className="card p-3 shadow" style={{width:'18em'}}>
+    return (
+        <div className="container formulario-registro">
+            <div className="card p-3 shadow" style={{ width: '18em' }}>
                 <h2>Login</h2>
-                    <form onSubmit={validarInput}>
-                        <input 
+                <form onSubmit={handleSubmit}>
+                    <input 
                         className='form-control mt-2' 
-                        type="text" 
+                        type="email" 
                         placeholder='Correo'
-                        name = 'correo'
-                        onChange={correoValor}
                         value={correo}
-
-                        />
-                        <input className='form-control mt-2' 
+                        onChange={(e) => setCorreo(e.target.value)}
+                    />
+                    <input 
+                        className='form-control mt-2' 
                         type="password" 
                         placeholder='Contraseña'
-                        name='password'
-                        onChange={passwordValor}
-                        value ={password} 
-                        />
-                        <button className='btn btn-success mt-2' type='submit'>Iniciar sesión</button>
-                    </form>
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                    />
+                    <button className='btn btn-success mt-2' type='submit'>Iniciar sesión</button>
+                </form>
             </div>
         </div>
-    </>
-  )
-}
+    );
+};
 
-export default Register
+export default Login;

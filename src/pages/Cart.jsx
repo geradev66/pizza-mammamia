@@ -41,9 +41,12 @@ const Cart = () => {
       <h2>Total: ${total}</h2>
 
 
-      <button className="btn btn-success mt-3" disabled={!token}>
-        Pagar
+      <button className="btn btn-success mt-3" 
+        disabled={!token} 
+        onClick={() => token ? alert("Procesando pago...") : null}>
+          Pagar
       </button>
+
 
 
       {!token && <p className="text-danger mt-2">Debes iniciar sesión para pagar.</p>}
